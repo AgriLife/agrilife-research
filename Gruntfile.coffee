@@ -33,7 +33,6 @@ module.exports = (grunt) ->
 
   @loadNpmTasks 'grunt-contrib-compress'
   @loadNpmTasks 'grunt-gh-release'
-  @loadNpmTasks 'grunt-gitinfo'
 
   @registerTask 'release', ['compress', 'setreleasemsg', 'gh_release']
   @registerTask 'setreleasemsg', 'Set release message as range of commits', ->
