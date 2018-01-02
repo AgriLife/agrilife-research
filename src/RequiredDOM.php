@@ -224,7 +224,7 @@ class RequiredDOM {
 
         $output = '
             <div class="footer-container-research">
-                <a href="http://agrilifeextension.tamu.edu/" title="Texas A&M AgriLife Research Service"><img class="footer-research-logo" src="'.AG_RESEARCH_DIR_URL.'/img/logo-research.png" title="Texas A&M AgriLife Research Service" alt="Texas A&M AgriLife Research Service" /><noscript><img src="//agrilifecdn.tamu.edu/wp-content/themes/AgriLife-Beta/images/footer-tamus.png" title="Texas A&M University System Member" alt="Texas A&M University System Member" /></noscript></a>
+                <a href="http://agriliferesearch.tamu.edu/" title="Texas A&M AgriLife Research Service"><img class="footer-research-logo" src="'.AG_RESEARCH_DIR_URL.'/img/logo-research.png" title="Texas A&M AgriLife Research Service" alt="Texas A&M AgriLife Research Service" /><noscript><img src="//agrilifecdn.tamu.edu/wp-content/themes/AgriLife-Beta/images/footer-tamus.png" title="Texas A&M University System Member" alt="Texas A&M University System Member" /></noscript></a>
             </div>';
 
         echo $output;
