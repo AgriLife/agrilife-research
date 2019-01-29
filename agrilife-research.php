@@ -42,17 +42,46 @@ add_action( 'agrilife_core_init', function() {
     $ext_landing_1_template->register();
 });
 
-//$ext_widget_areas = new \AgriLife\Research\WidgetAreas();
-/*
-if ( class_exists( 'Acf' ) ) {
-    // Add new ACF json load point
-    add_filter('acf/settings/load_json', 'extension_acf_json_load_point');
-} else {
-    add_action( 'admin_notices', 'agrilife_acf_notice' );
+
+// Add custom header support and options to Theme Customizer page in admin
+add_action( 'plugins_loaded', 'agp_add_theme_support' );
+function agp_add_theme_support(){
+
+  add_theme_support( 'custom-header', array(
+    'header-text' => true,
+    'height' => 100,
+    'width' => 340,
+    'flex-height' => true,
+    'flex-width' => true,
+  ));
+
 }
 
-function extension_acf_json_load_point( $paths ) {
-    $paths[] =  AG_COL_DIR_PATH . 'fields' ;
-    return $paths;
+// Add class to identify header content configuration
+add_filter( 'body_class', 'agp_body_class' );
+function agp_body_class($classes = ''){
+
+  if( empty( get_header_image() ) ){
+    // No header image
+    $classes[] = 'agp-header-noimage';
+  } else {
+    $classes[] = 'agp-header-image';
+  }
+  if( get_theme_mod( 'header_textcolor' ) == 'blank' ){
+    // No header text
+    $classes[] = 'agp-header-notitle';
+  }
+  if( defined( 'CHILD_THEME_NAME' ) ){
+    $classes[] = strtolower( 'agp-header-' . str_replace( ' ', '-', CHILD_THEME_NAME ) );
+  }
+
+  return $classes;
 }
-*/
+
+// Replace Genesis function with modified version to suit our needs
+add_action( 'init', 'agp_replace_genesis_custom_header_style', 99 );
+function agp_replace_genesis_custom_header_style(){
+
+  remove_action( 'wp_head', 'genesis_custom_header_style' );
+
+}

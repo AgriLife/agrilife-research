@@ -3,10 +3,10 @@ namespace AgriLife\Research;
 
 class RequiredDOM {
 
-	public function __construct() {
+    public function __construct() {
 
-		// Alter header title
-		add_filter( 'genesis_seo_title', array( $this, 'seo_title' ), 10, 3 );
+        // Alter header title
+        add_filter( 'genesis_seo_title', array( $this, 'seo_title' ), 10, 3 );
 
         add_filter( 'genesis_seo_title', array( $this, 'logo_title' ), 9, 3 );
 
@@ -25,7 +25,7 @@ class RequiredDOM {
         // Render the footer
         add_action( 'genesis_header', array($this, 'add_research_footer_content') ) ;
 
-	}
+    }
 
     /**
      * Adds logos to the header title
@@ -93,23 +93,22 @@ class RequiredDOM {
         return $title;
     }
 
-	/**
-	 * Modifies the header title
-	 *
-	 * @param $title The title text
-	 * @param $inside
-	 * @param $wrap
-	 *
-	 * @return string
-	 */
-	public function seo_title( $title, $inside, $wrap ) {
+    /**
+     * Modifies the header title
+     *
+     * @param $title The title text
+     * @param $inside
+     * @param $wrap
+     *
+     * @return string
+     */
+    public function seo_title( $title, $inside, $wrap ) {
 
         // Provide site title if description not used
-        if(empty(get_bloginfo('description'))){
+        if ( empty( get_bloginfo('description') ) ) {
 
             // Replace h1 with div for SEO
-            $wrap = 'div';
-
+            $wrap   = 'div';
             $title .= sprintf( '<%s class="site-description" itemprop="description"><span class="site-unit-name">%s</span></%s>',
                 $wrap,
                 get_bloginfo('name'),
@@ -119,7 +118,7 @@ class RequiredDOM {
 
         return $title;
 
-	}
+    }
 
     /**
      * Reformats the tagline
@@ -150,10 +149,26 @@ class RequiredDOM {
             $title = str_replace( $inside, '%s', $title );
         }
 
+        // Add header image if present
+        $header_image_url = get_header_image();
+        $header_image     = '';
+
+        if ( ! empty( $header_image_url ) ){
+            $header_html = '<a class="headerimage" href="%s"><img src="%s" alt="%s"></a>';
+            $header_image = sprintf( $header_html, trailingslashit( home_url() ), $header_image_url, get_bloginfo( 'title' ) );
+        }
+
+        $inside = sprintf(
+            '%s<span class="site-unit-name">%s</span><span class="site-unit-title">%s</span>',
+            $header_image,
+            esc_attr( get_bloginfo('name') ),
+            $inside
+        );
+
         // Add the site title before the description
         $title = sprintf( $title,
             $wrap,
-            '<span class="site-unit-name">' . esc_attr( get_bloginfo('name') ) . '</span><span class="site-unit-title">' . $inside . '</span>',
+            $inside,
             $wrap
         );
 
@@ -231,12 +246,12 @@ class RequiredDOM {
 
     }
 
-	/**
-	 * Render the widgets in the footer
-	 * @since 1.0
-	 * @return void
-	 */
-	public function render_footer_widgets() {
+    /**
+     * Render the widgets in the footer
+     * @since 1.0
+     * @return void
+     */
+    public function render_footer_widgets() {
 
         if ( is_active_sidebar( 'footer-center' ) ) : ?>
             <div id="footer-center-widgets" class="footer-center widget-area" role="complementary">
@@ -244,7 +259,7 @@ class RequiredDOM {
             </div><!-- #footer-center-widgets -->
         <?php endif;
 
-	}
+    }
 
 
     /**
