@@ -3,7 +3,7 @@
  * Plugin Name: AgriLife Research
  * Plugin URI: https://github.com/AgriLife/AgriLife-Research
  * Description: Functionality for AgriLife Research sites using AgriFlex 3
- * Version: 1.0
+ * Version: 1.2.1
  * Author: Zach Watkins
  * Author URI: http://github.com/ZachWatkins
  * Author Email: zachary.watkins@ag.tamu.edu
